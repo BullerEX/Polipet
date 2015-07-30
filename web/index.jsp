@@ -9,6 +9,7 @@
 
 String usr = (String) session.getAttribute("user");
 String Direccion = (String) session.getAttribute("Direccion");
+String usrid = (String) session.getAttribute("userid");
     
 %>
 <!DOCTYPE html>

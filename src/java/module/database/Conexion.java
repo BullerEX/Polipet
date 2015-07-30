@@ -1,10 +1,12 @@
 
-package modulo.conexion;
+package module.database;
 /**
  * you mama.
  */
 
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
  /**
@@ -23,10 +25,20 @@ public class Conexion {
     public static String pass = "";
     
     public static String url = "jdbc:mysql://localhost:3306/" + db + "?user=" + user + "&password=" + pass ;
-
-    public static Connection getConexion() throws SQLException {
-DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-        cn = DriverManager.getConnection(url, user, pass);
+    
+    public static Connection getConexion() {
+        
+        Connection cn = null;
+        try {
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+            cn = DriverManager.getConnection(url, user, pass);
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return cn;
     }
+   
+    
 }

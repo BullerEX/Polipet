@@ -3,15 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modulo.conexion;
+package module.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import module.model.Acciones;
+import module.model.mascotasm;
 
 /**
  *
@@ -34,7 +38,7 @@ public class listamascotas extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
+            /* out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet listamascotas</title>");            
@@ -43,6 +47,19 @@ public class listamascotas extends HttpServlet {
             out.println("<h1>Servlet listamascotas at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
+            */
+            HttpSession session = request.getSession(false);
+            String usrid = (String) session.getAttribute("usrid");
+            String rol = (String) session.getAttribute("rol");
+            Acciones lqs = new Acciones();
+            ArrayList<mascotasm> mascota = lqs.listamascotas(usrid, rol);
+            if (mascota != null) {
+                session.setAttribute("mascotas", mascota);
+                response.sendRedirect("mascotas.jsp");
+            } else {
+                response.sendRedirect("mascotas.jsp");
+            }
+            
         }
     }
 

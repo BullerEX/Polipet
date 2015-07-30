@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modulo.conexion;
+package module.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import module.database.Conexion;
 
 /**
  *
@@ -87,25 +88,32 @@ public class Login extends HttpServlet {
             pst.setString(2, password);
             rs = pst.executeQuery();
             String usr = mail;
-            String m = "";            
+            String m = ""; 
+            String  usrid = "";
+            String rol = "";
             while (rs.next()) {
                 //en caso de existir un conincidencia
                 existeUser = true;
                 //y remplazmos los atributos de dicho usuario
-                m = rs.getString("Direccion");           
+                m = rs.getString("Direccion");
+                usrid = rs.getString("userid");
+                usr = rs.getString("user");
+                rol = rs.getString("rol");
             }   
             
             //el usuario es Sony la contraseña es 12345678
             if (existeUser){
                 //para el usuario existente
                 //Remplazamos los atributos que luego obtendremos de las paginas jsp
-                request.setAttribute("Direccion", m);              
+               
                 //mandamos estos atributos a la pagina de bienvenida.jsp
                 /*request.getRequestDispatcher("/index.jsp").forward(request, response);    
                 */
                 HttpSession session = request.getSession(true);
                         session.setAttribute("Direccion",m);
                         session.setAttribute("user", usr);
+                        session.setAttribute("userid", usrid);
+                        session.setAttribute("rol", rol);
                         response.sendRedirect("index.jsp");
                         
                         

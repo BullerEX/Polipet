@@ -5,9 +5,9 @@
 --%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
-<%@page import="modulo.conexion.Acciones" %>
+<%@page import="module.model.Acciones" %>
 <%@page import="java.sql.Connection"%>
-<%@page import="modulo.conexion.Conexion"%>
+<%@page import="module.database.Conexion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% 
 
