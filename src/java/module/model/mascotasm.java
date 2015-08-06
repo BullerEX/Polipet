@@ -12,9 +12,14 @@ package module.model;
 public class mascotasm {
     private String usrid;
     private String nombre;
-    private boolean genero;
+    private String genero;
     private String caris;
     private String raza;
+    private String edad;
+    private String dueño;
+    private String especie;
+    private String vacunas;
+    private String estado;
 
     public String getUsrid() {
         return usrid;
@@ -32,10 +37,10 @@ public class mascotasm {
         this.nombre = nombre;
     }
 
-    public void setGenero(boolean genero) {
+    public void setGenero(String genero) {
         this.genero = genero;
     }
-    public boolean getGenero() {
+    public String getGenero() {
         return genero;
     }
 
@@ -55,5 +60,40 @@ public class mascotasm {
         return raza;
     }
 
+    public String getEdad() {
+        return edad;
+    }
+
+    public void setEdad(String edad) {
+        this.edad = edad;
+    }
+    public String getDueño() {
+        return dueño;
+    }
+
+    public void setDueño(String dueño) {
+        this.dueño = dueño;
+    }
+    public String getEspecie() {
+        return usrid;
+    }
+
+    public void setEspecie(String especie) {
+        this.especie = especie;
+    }
+    public String getVacunas() {
+        return vacunas;
+    }
+
+    public void setVacunas(String vacunas) {
+        this.vacunas = vacunas;
+    }
     
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 }

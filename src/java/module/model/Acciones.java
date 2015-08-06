@@ -47,6 +47,7 @@ public class Acciones extends Conexion {
         return res;
     }
 
+    /*
     public ArrayList listamascotas(String usrid, String rol) {
         Conexion sqlite = new Conexion();
         Connection cn = sqlite.getConexion();
@@ -70,12 +71,19 @@ public class Acciones extends Conexion {
             
 
             while (rs.next()) {
+                
                 mascotasm mypet = new mascotasm();
-                mypet.setUsrid(rs.getString(1));
+                mypet.setDueño(rs.getString(1));
                 mypet.setNombre(rs.getString(2));
-                mypet.setGenero(rs.getBoolean(3));
-                mypet.setRaza(rs.getString(4));
-                mypet.setCaris(rs.getString(5));
+                mypet.setRaza(rs.getString(3));
+                mypet.setEspecie(rs.getString(4));
+                mypet.setVacunas(rs.getString(5));
+                mypet.setEstado(rs.getString(6));
+                mypet.setGenero(rs.getString(7));
+                mypet.setCaris(rs.getString(8));
+                mypet.setEdad(rs.getString(9));
+                mypet.setUsrid(rs.getString(10));
+                
                 mascotas.add(mypet);
             }
             cn.close();
@@ -85,14 +93,13 @@ public class Acciones extends Conexion {
 
         return mascotas;
     }
-
+*/
     public void registro(String mail, String password, String nombre, String apellido, String direccion, String telefono, String estrato, String estado, String genero, String celular, String hobbi) throws SQLException {
 
         
         try {
             Conexion mysql = new Conexion();
             Connection cn = mysql.getConexion();
-            String formu = "No";
             Statement st = cn.createStatement();
             String consulta = "INSERT INTO usuario (mail,pass,nombre,apellido,direccion,telefono,estrato,estado,genero,celular,hobbi)VALUES ('" + mail + "','"+password+ "','"+ nombre+"','"+ apellido+"','"+ direccion +"','"+ telefono+"','"+ estrato+"','"+ estado+"','"+ genero +"','"+ celular+"','"+ hobbi+"');";
             st.executeUpdate(consulta);
@@ -104,13 +111,17 @@ public class Acciones extends Conexion {
        
     }
 
-    public String registromascotas(String dueño, String nombre, String raza, String especie, String vacunas, String caracteristicas, String genero, String años) throws SQLException {
-        Conexion sqlite = new Conexion();
-        Connection cn = sqlite.getConexion();
-        Statement stmt;
-        String query = "";
-        String mmm = "";
+    public void registromascotas(String dueño, String nombre, String raza, String especie, String vacunas, String caracteristicas,String estado, String genero, String años, String usrid) throws SQLException {
+        Conexion mysql = new Conexion();
+        Connection cn = mysql.getConexion();
+        
         try {
+           
+            Statement st = cn.createStatement();
+            String consulta = "INSERT INTO mascota (dueño,nombre,raza,especie,vacunas,estado,genero,caracteristicas,edad,usrid)VALUES ('" +dueño+ "','"+nombre+ "','"+raza+"','"+ especie+"','"+ vacunas +"','"+ estado +"','"+ genero+"','"+ caracteristicas+"','"+ años+"','"+ usrid +"');";
+            st.executeUpdate(consulta);
+            
+            /*
             stmt = cn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             PreparedStatement pst = (PreparedStatement) cn.prepareStatement("insert into mascotas(dueño,nombre,raza,especie,vacunas,caracteristicas,genero,años) values(?,?,?,?,?,?,?,?)");
@@ -128,13 +139,13 @@ public class Acciones extends Conexion {
             if (i != 0) {
                 mmm = "Registro de Mascota Satisfactorio";
             }
-
+                  */
         } catch (SQLException ex) {
             Logger.getLogger(Acciones.class.getName()).log(Level.SEVERE, null, ex);
 
         }
         cn.close();
-        return mmm;
+        
     }
 
 }

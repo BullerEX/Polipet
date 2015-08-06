@@ -89,24 +89,26 @@ public class Login extends HttpServlet {
             rs = pst.executeQuery();
             String usr = mail;
             String m = "";
-            String usrid = "";
+            int usridint = 0;
             String rol = "";
             String telefono = "";
             String celular = "";
             String direccion = "";
+            String usrid = "";
             while (rs.next()) {
                 //en caso de existir un conincidencia
                 existeUser = true;
                 //y remplazmos los atributos de dicho usuario
                 m = rs.getString("direccion");
-                usrid = rs.getString("idUsuario");
+                usridint = rs.getInt("idUsuario");
+                usrid = Integer.toString(usridint);
                 usr = rs.getString("nombre");
                 telefono = rs.getString("telefono");
                 direccion = rs.getString("direccion");
                 celular = rs.getString("celular");
                 rol = rs.getString("rol");
             }
-
+            // clase encapsulamiento herencia parametros basicos servlet aplicacion
             //el usuario es Sony la contraseña es 12345678
             if (existeUser) {
                 //para el usuario existente

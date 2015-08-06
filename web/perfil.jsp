@@ -9,18 +9,17 @@
 <%@page import="module.helper.mascotashelper"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%  
+<%
 
-String usr = (String) session.getAttribute("user");
-
-String Direccion = (String) session.getAttribute("Direccion");
-String rol = (String) session.getAttribute("rol");
-String usrid = (String) session.getAttribute("userid");
-ArrayList<mascotasm> mascotas = (ArrayList<mascotasm>) session.getAttribute("mascota");
-mascotashelper mhd= new mascotashelper();
-String telefono = (String) session.getAttribute("telefono");
-String direccion = (String) session.getAttribute("direccion");
-String celular = (String) session.getAttribute("celular");
+    String usr = (String) session.getAttribute("user");
+    String Direccion = (String) session.getAttribute("Direccion");
+    String rol = (String) session.getAttribute("rol");
+    String usrid = (String) session.getAttribute("userid");
+    ArrayList<mascotasm> mascotas = (ArrayList<mascotasm>) session.getAttribute("mascota");
+    mascotashelper mhd = new mascotashelper();
+    String telefono = (String) session.getAttribute("telefono");
+    String direccion = (String) session.getAttribute("direccion");
+    String celular = (String) session.getAttribute("celular");
 
         
 
@@ -62,16 +61,16 @@ String celular = (String) session.getAttribute("celular");
                     <ul class="nav navbar-nav navbar-right">
                         <!--el usuario es Sony tiene como contraseña 12345678--> 
 
-                        <%if (usr != null){%>
+                        <%if (usr != null) {%>
                         <li><a href="index.jsp"><%= usr%></a></li>
                         <li><a href="Cerrar">Cerrar sesion</a></li>
                             <%}%>
-                            <%if (usr == null){ %>
+                            <%if (usr == null) { %>
                         <li><a href="login.jsp">Iniciar sesion</a></li>
                             <% }%>
                         <li><a href="index.jsp">Noticias </a></li>
                         <li><a href="#">Auxilio</a></li>
-                        <li><a href="">Hogar de paso</a></li>
+                        <li><a href=""><%= mascotas %> </a></li>
                     </ul>
                 </div>
             </div>
@@ -128,15 +127,19 @@ String celular = (String) session.getAttribute("celular");
                                                 <label for="input" class="col-lg-2 control-label"><%= celular%></label>
                                             </div>
                                         </div>
-                                        <ul>    
-                                            <div class="form-group">
-                                                <div class="col-lg-10 col-lg-offset-2">
-                                                    <a href="registro.jsp" class="btn btn-primary">Registrarse</a>
-                                                    <li><a href="listamascotas">ir a mascotas</a> </li>
-                                                </div>
+                                        <div class="form-group">
+                                            <label for="inputText" class="col-lg-2 control-label">Mascotas:</label>
+                                            <div class="col-lg-10">
+                                                <label><a href="mascotas.jsp" class="btn btn-primary" >ir a mascotas</a></label>
                                             </div>
-                                        </ul>
+                                        </div>
+
+
+
+                                            
                                     </div>
+
+                                </div>
                             </fieldset>
 
                         </form>
@@ -145,7 +148,7 @@ String celular = (String) session.getAttribute("celular");
                 </div></div>
 
         </div>
-    </div>
+    
 
 
 </body>

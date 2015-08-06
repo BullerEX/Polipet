@@ -60,8 +60,9 @@ public class registromascotas extends HttpServlet {
             String estado = request.getParameter("estado");
             String genero = request.getParameter("genero");
             String años = request.getParameter("años");
+            String usrid = request.getParameter("usrid");
             Acciones lsq = new Acciones();
-            String mdrm = (lsq.registromascotas(dueño, nombre, raza, especie, vacunas, caracteristicas, genero, años));
+            lsq.registromascotas(dueño, nombre, raza, especie, vacunas, caracteristicas, estado, genero, años, usrid);
             
             
         } catch (SQLException ex) {

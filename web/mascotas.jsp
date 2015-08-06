@@ -4,18 +4,33 @@
     Author     : adsi
 --%>
 
+<%@page import="java.util.logging.Logger"%>
+<%@page import="java.util.logging.Logger"%>
+<%@page import="java.util.logging.Level"%>
+<%@page import="module.model.Acciones"%>
+<%@page import="module.model.Acciones"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="module.database.Conexion"%>
 <%@page import="module.helper.mascotashelper"%>
 <%@page import="module.model.mascotasm"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
 
-    String usr = (String) session.getAttribute("user");
-    String Direccion = (String) session.getAttribute("Direccion");
-    String rol = (String) session.getAttribute("rol");
     String usrid = (String) session.getAttribute("userid");
-    ArrayList<mascotasm> mascotas = (ArrayList<mascotasm>) session.getAttribute("mascota");
-    mascotashelper mhd= new mascotashelper();
+    String rol = (String) session.getAttribute("rol");
+    String usr = (String) session.getAttribute("user") /*String dueño = (String) session.getAttribute("dueño");
+             String nombre = (String) session.getAttribute("nombre");
+             String raza = (String) session.getAttribute("raza");
+             String especie = (String) session.getAttribute("especie");
+             String vacunas = (String) session.getAttribute("vacunas");
+             String estado = (String) session.getAttribute("estado");
+             String genero = (String) session.getAttribute("genero");
+             String caris = (String) session.getAttribute("caris");
+             String edad = (String) session.getAttribute("edad")*/;
 
 %>
 <!DOCTYPE html>
@@ -82,29 +97,86 @@
                                                         <th>Dueño</th>
                                                         <th>Nombre Mascota</th>
                                                         <th>Raza</th>
+                                                        <th>Especie</th>
+                                                        <th>Vacunas</th>
+                                                        <th>Estado</th>
                                                         <th>Genero</th>
                                                         <th>Caracteristicas</th>
+                                                        <th>edad</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <% for (mascotasm m : mascotas) {%>
+                                                    <%  Conexion sqlite = new Conexion();
+                                                        Connection cn = sqlite.getConexion();
+
+                                                        String query = "";
+                                                        switch (rol) {
+                                                            case "1":
+                                                                query = "select * from mascota;";
+                                                                break;
+                                                            case "0":
+                                                                query = "select * from mascota where usrid = '" + usrid + "';";
+                                                                break;
+                                                        }
+                                                        boolean novacio = false;
+                                                        String dueño = "";
+                                                        String nombre = "";
+                                                        String raza = "";
+                                                        String especie = "";
+                                                        String vacunas = "";
+                                                        String estado = "";
+                                                        String genero = "";
+                                                        String caris = "";
+                                                        String edad = "";
+                                                        try {
+                                                            Statement stmt;
+                                                            stmt = cn.createStatement();
+                                                            ResultSet rs = stmt.executeQuery(query);
+
+                                                            while (rs.next()) {
+
+                                                                dueño = rs.getString(1);
+                                                                nombre = rs.getString(2);
+                                                                raza = rs.getString(3);
+                                                                especie = rs.getString(4);
+                                                                vacunas = rs.getString(5);
+                                                                estado = rs.getString(6);
+                                                                genero = rs.getString(7);
+                                                                caris = rs.getString(8);
+                                                                edad = rs.getString(9);
+                                                                novacio = true;
+
+                                                            
+                                                    %>
                                                     <tr>
-                                                        <td> <%= usr %> </td>
-                                                        <td><%= m.getNombre()%></td>
-                                                        <td><%= m.getRaza()%></td>
-                                                        <td><%= mhd.Defgen(m.getGenero())%></td>
-                                                        <td><%= m.getCaris()%></td>
-                                                     
+                                                        <td> <%= dueño%> </td>
+
+                                                        <td><%= nombre%></td>
+                                                        <td><%=raza%></td>
+                                                        <td><%= especie%></td>
+                                                        <td><%= vacunas%></td>
+                                                        <td><%= estado%></td>
+                                                        <td><%= genero%></td>
+                                                        <td><%= caris%></td>
+                                                        <td><%= edad%></td>
+
+
                                                     </tr>
-                                                    <% }%>
+
                                                 </tbody>
                                             </table>
+                                            <%  }
+
+                                                    cn.close();
+                                                } catch (Exception ex) {
+                                                    Logger.getLogger(Acciones.class.getName()).log(Level.SEVERE, null, ex);
+                                                }%>
                                         </div>
                                     </div></div>
                             </div>
                         </div>
                     </div></div>
-                <div class="col-md-3 col-md-pull-9"><div class="panel panel-default">
+               <!-- <div class="col-md-3 col-md-pull-9"><div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Mascotas</h3>
                         </div>
@@ -119,7 +191,7 @@
                                         </div>
                                     </div></div></div>
                         </div>
-                    </div></div>
+                    </div></div> -->
             </div>
         </div>
 
