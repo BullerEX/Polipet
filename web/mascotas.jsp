@@ -14,23 +14,12 @@
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="module.database.Conexion"%>
-<%@page import="module.helper.mascotashelper"%>
-<%@page import="module.model.mascotasm"%>
-<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
 
     String usrid = (String) session.getAttribute("userid");
     String rol = (String) session.getAttribute("rol");
-    String usr = (String) session.getAttribute("user") /*String dueño = (String) session.getAttribute("dueño");
-             String nombre = (String) session.getAttribute("nombre");
-             String raza = (String) session.getAttribute("raza");
-             String especie = (String) session.getAttribute("especie");
-             String vacunas = (String) session.getAttribute("vacunas");
-             String estado = (String) session.getAttribute("estado");
-             String genero = (String) session.getAttribute("genero");
-             String caris = (String) session.getAttribute("caris");
-             String edad = (String) session.getAttribute("edad")*/;
+    String usr = (String) session.getAttribute("user");
 
 %>
 <!DOCTYPE html>
@@ -84,116 +73,110 @@
         </nav>
         <div align="center" class="container">
             <div class="row">
-                <div class="col-md-9 col-md-push-3"><div class="panel panel-default">
-                        <div class="panel-heading">Noticias</div>
+                <div> <div class="panel panel-default">
+
+
                         <div class="panel-body">
-                            <div class="row">
-                                <div class="col-md-10 col-md-push-1"><div class="panel panel-default">
-                                        <div class="panel-heading">Jornada de vacunacion itagui</div>
-                                        <div class="panel-body">
-                                            <table class="table table-striped table-hover ">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Dueño</th>
-                                                        <th>Nombre Mascota</th>
-                                                        <th>Raza</th>
-                                                        <th>Especie</th>
-                                                        <th>Vacunas</th>
-                                                        <th>Estado</th>
-                                                        <th>Genero</th>
-                                                        <th>Caracteristicas</th>
-                                                        <th>edad</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <%  Conexion sqlite = new Conexion();
-                                                        Connection cn = sqlite.getConexion();
+                            <table class="table table-striped table-hover ">
+                                <thead>
+                                    <tr>
+                                        <th>Dueño</th>
+                                        <th>Nombre Mascota</th>
+                                        <th>Raza</th>
+                                        <th>Especie</th>
+                                        <th>edad</th>
+                                        <th>Opciones</th>
 
-                                                        String query = "";
-                                                        switch (rol) {
-                                                            case "1":
-                                                                query = "select * from mascota;";
-                                                                break;
-                                                            case "0":
-                                                                query = "select * from mascota where usrid = '" + usrid + "';";
-                                                                break;
-                                                        }
-                                                        boolean novacio = false;
-                                                        String dueño = "";
-                                                        String nombre = "";
-                                                        String raza = "";
-                                                        String especie = "";
-                                                        String vacunas = "";
-                                                        String estado = "";
-                                                        String genero = "";
-                                                        String caris = "";
-                                                        String edad = "";
-                                                        try {
-                                                            Statement stmt;
-                                                            stmt = cn.createStatement();
-                                                            ResultSet rs = stmt.executeQuery(query);
+                                    </tr>
+                                </thead>
 
-                                                            while (rs.next()) {
+                                <%
+                                    try {
+                                        Conexion mysql = new Conexion();
+                                        Connection cn = mysql.getConexion();
 
-                                                                dueño = rs.getString(1);
-                                                                nombre = rs.getString(2);
-                                                                raza = rs.getString(3);
-                                                                especie = rs.getString(4);
-                                                                vacunas = rs.getString(5);
-                                                                estado = rs.getString(6);
-                                                                genero = rs.getString(7);
-                                                                caris = rs.getString(8);
-                                                                edad = rs.getString(9);
-                                                                novacio = true;
+                                        String query = "";
 
-                                                            
-                                                    %>
-                                                    <tr>
-                                                        <td> <%= dueño%> </td>
+                                        if (rol.equals("0")) {
 
-                                                        <td><%= nombre%></td>
-                                                        <td><%=raza%></td>
-                                                        <td><%= especie%></td>
-                                                        <td><%= vacunas%></td>
-                                                        <td><%= estado%></td>
-                                                        <td><%= genero%></td>
-                                                        <td><%= caris%></td>
-                                                        <td><%= edad%></td>
+                                            query = "select * from mascota;";
+
+                                        } else {
+                                            query = "select * from mascota where usrid = '" + usrid + "';";
+
+                                        }
+                                            
+                                        String dueño = "";
+                                        String nombre = "";
+                                        String raza = "";
+                                        String especie = "";
+                                        String vacunas = "";
+                                        String estado = "";
+                                        String genero = "";
+                                        String caris = "";
+                                        String edad = "";
+                                        String masid ="";
+                                        Statement stmt;
+                                        stmt = cn.createStatement();
+                                        ResultSet rs = stmt.executeQuery(query);
+
+                                        while (rs.next()) {
+                                            masid = rs.getString(1);
+                                            dueño = rs.getString(2);
+                                            nombre = rs.getString(3);
+                                            raza = rs.getString(4);
+                                            especie = rs.getString(5);
+                                            vacunas = rs.getString(6);
+                                            estado = rs.getString(7);
+                                            genero = rs.getString(8);
+                                            caris = rs.getString(9);
+                                            edad = rs.getString(10);
 
 
-                                                    </tr>
+                                %> 
+                                <tbody>
+                                    <tr>
+                                        <td> <%= dueño%> </td>
 
-                                                </tbody>
-                                            </table>
-                                            <%  }
+                                        <td><%= nombre%></td>
+                                        <td><%= raza%></td>
+                                        <td><%= especie%></td>
+                                        <td><%= edad%> </td>
+                                     
+                                           <form action="mostrarmascota" >
+                                               
+                                        <td><button class="btn btn-primary" class="btn-primary" name="masid" value="<%= masid%>">Mostrar </button></td>
+                                        
+                                           </form>
+                                      
+                                      <form >
+                                        <td><button href= "editarmascota.jsp" class="btn btn-warning"  name="masid" value="<%= masid%>">Editar</button></td>
+                                      </form>
+                                      
+                                      <form action="eliminarmascota"    >
+                                        <td><button class="btn btn-danger" class="btn-primary" name="masid" value="<%= masid%>">Eliminar</button></td>
+                                      </form>
 
-                                                    cn.close();
-                                                } catch (Exception ex) {
-                                                    Logger.getLogger(Acciones.class.getName()).log(Level.SEVERE, null, ex);
-                                                }%>
-                                        </div>
-                                    </div></div>
-                            </div>
+
+
+                                        <%  }
+
+                                                cn.close();
+                                            } catch (Exception ex) {
+                                                Logger.getLogger(Acciones.class.getName()).log(Level.SEVERE, null, ex);
+                                            }%>
+                                    </tr>
+
+                                </tbody>
+                            </table> 
                         </div>
-                    </div></div>
-               <!-- <div class="col-md-3 col-md-pull-9"><div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Mascotas</h3>
-                        </div>
-                        <div class="panel-body">
+                    </div>
+                </div>
 
-                            <div  class="row">
-                                <div class="col-md-10 col-md-push-1"><div class="panel panel-default">
-                                        <div class="panel-heading">Adopcion</div>
-                                        <div class="panel-body">
-                                            <img  src="images/gato1.jpg" alt="images/gato1.jpg">
-                                            Benediktinermönchen. Neben Hebräisch und Französisch beherrschte er auch Latein. Ab 1355 war er mi
-                                        </div>
-                                    </div></div></div>
-                        </div>
-                    </div></div> -->
             </div>
         </div>
 
-    </body>
+ 
+
+</body>
 </html>

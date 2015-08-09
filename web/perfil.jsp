@@ -4,9 +4,6 @@
     Author     : adsi
 --%>
 
-<%@page import="java.util.ArrayList"%>
-<%@page import="module.model.mascotasm"%>
-<%@page import="module.helper.mascotashelper"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
@@ -15,8 +12,6 @@
     String Direccion = (String) session.getAttribute("Direccion");
     String rol = (String) session.getAttribute("rol");
     String usrid = (String) session.getAttribute("userid");
-    ArrayList<mascotasm> mascotas = (ArrayList<mascotasm>) session.getAttribute("mascota");
-    mascotashelper mhd = new mascotashelper();
     String telefono = (String) session.getAttribute("telefono");
     String direccion = (String) session.getAttribute("direccion");
     String celular = (String) session.getAttribute("celular");
@@ -70,7 +65,7 @@
                             <% }%>
                         <li><a href="index.jsp">Noticias </a></li>
                         <li><a href="#">Auxilio</a></li>
-                        <li><a href=""><%= mascotas %> </a></li>
+                        <li><a href="">Tu mama</a></li>
                     </ul>
                 </div>
             </div>
@@ -118,7 +113,7 @@
                                         <div class="form-group">
                                             <label for="inputText" class="col-lg-2 control-label">Telefono</label>
                                             <div class="col-lg-10">
-                                                <label for="input" class="col-lg-2 control-label"><%= telefono%></label>
+                                                <label for="input" class="col-lg-2 control-label"><%= telefono%> user id es <%= usrid%> rol es <%= rol%> y la direccion es <%= Direccion%> </label>
                                             </div>
                                         </div>
                                         <div class="form-group">

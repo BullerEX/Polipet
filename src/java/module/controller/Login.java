@@ -133,6 +133,7 @@ public class Login extends HttpServlet {
                 //de lo contrario nos lleva la pagina errorLogin.jsp
                 request.getRequestDispatcher("/registro.jsp").forward(request, response);
             }
+            
             out.close();
         } catch (SQLException ex) {
             out.println(ex.toString());
